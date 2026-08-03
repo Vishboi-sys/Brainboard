@@ -1,13 +1,13 @@
 const {app, BrowserWindow, globalShortcut, ipcMain} = require("electron");
 
-let win;
+let windows = [];
 
-function createWindow() {
-    win = new BrowserWindow({
-        width: 500,
-        height: 300,
-        x: 600,
-        y: 120,
+function createBoxWindow(file, x, y, width, height) {
+    const win = new BrowserWindow({
+        width: width,
+        height: height,
+        x: x,
+        y: y,
         frame: false,
         transparent: true,
         alwaysOnTop: true,
@@ -17,27 +17,33 @@ function createWindow() {
         },
     });
 
-    win.loadFile("index.html");
+    win.loadFile(file);
+    return win;
 }
 
 app.whenReady().then(() => {
-    createWindow();
+    const searchWindow = createBoxWindow("search.html", 600, 120, 500, 60);
+    const todoWindow = createBoxWindow("todo.html", 600, 190, 500, 300);
+
+    windows = [searchWindow, todoWindow]
 
     globalShortcut.register("Control+Space", () => {
-        if (win.isVisible()) {
-            win.hide();
-        } else {
-            win.show();
+        const isVisible = windows[0].isVisible();
+
+        for (const win of windows) {
+            if (isVisible) {
+                win.hide();
+            } else {
+                win.show();
+            }
         }
     });
 });
 
 ipcMain.on("hide-panel", () => {
-    win.hide();
-});
-
-ipcMain.handle("submit-query", async (event, text) => {
-    return "You said: " + text;
+    for (const win of windows) {
+        win.hide();
+    }
 });
 
 app.on("will-quit", () => {
