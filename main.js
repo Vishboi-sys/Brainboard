@@ -25,8 +25,9 @@ app.whenReady().then(() => {
     const searchWindow = createBoxWindow("search.html", 600, 120, 500, 60);
     const todoWindow = createBoxWindow("todo.html", 600, 190, 500, 300);
     const notepadWindow = createBoxWindow("notepad.html", 600, 500, 500, 200);
+    const pomodoroWindow = createBoxWindow("pomodoro.html", 600, 730, 500, 150);
 
-    windows = [searchWindow, todoWindow, notepadWindow];
+    windows = [searchWindow, todoWindow, notepadWindow, pomodoroWindow];
 
     globalShortcut.register("Control+Space", () => {
         const isVisible = windows[0].isVisible();
