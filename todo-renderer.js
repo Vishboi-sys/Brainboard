@@ -6,10 +6,23 @@ let tasks = [];
 function renderTasks() {
     todoResults.innerHTML = "";
 
-    for (const task of tasks) {
-        const item = document.createElement("div");
-        item.textContent = task;
-        todoResults.appendChild(item);
+    for (let i = 0; i < tasks.length; i++) {
+        const task = tasks[i];
+        const row = document.createElement("div");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.done;
+
+        checkbox.addEventListener("change", () => {
+            tasks[i].done = checkbox.checked;
+            renderTasks();
+        });
+
+        const label = document.createElement("span");
+        label.textContent = task.text;
+        row.appendChild(checkbox);
+        row.appendChild(label);
+        todoResults.appendChild(row);
     }
 }
 
@@ -19,8 +32,8 @@ document.addEventListener("keydown", (event) => {
     }
 
     if (event.key === "Enter" && todoInput.value.trim() !== "") {
-        tasks.push(todoInput.value.trim());
+        tasks.push({ text: todoInput.value.trim(), done: false });
         renderTasks();
         todoInput.value = "";
     }
-})
+});
