@@ -1,5 +1,7 @@
 const {app, BrowserWindow, globalShortcut, ipcMain} = require("electron");
+
 let win;
+
 function createWindow() {
     win = new BrowserWindow({
         width: 500,
@@ -14,11 +16,13 @@ function createWindow() {
             preload: __dirname + "/preload.js",
         },
     });
+
     win.loadFile("index.html");
 }
 
 app.whenReady().then(() => {
     createWindow();
+
     globalShortcut.register("Control+Space", () => {
         if (win.isVisible()) {
             win.hide();
@@ -30,6 +34,10 @@ app.whenReady().then(() => {
 
 ipcMain.on("hide-panel", () => {
     win.hide();
+});
+
+ipcMain.handle("submit-query", async (event, text) => {
+    return "You said: " + text;
 });
 
 app.on("will-quit", () => {
