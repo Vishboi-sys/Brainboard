@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html, body {
+                margin: 0;
+                height: 100%;
+                background: transparent;
+                overflow: hidden;
+            }
+
+            .box {
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                background: rgba(30, 30, 30, 1);
+                border-radius: 12px;
+                color: white;
+                font-family: sans-serif;
+                padding: 16px;
+            }
+
+            #cal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 12px;
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            #cal-header button {
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            #cal-grid {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 4px;
+                text-align: center;
+            }
+
+            #weekday-row {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                text-align: center;
+                font-size: 11px;
+                color: #888;
+                margin-bottom: 4px;
+            }
+
+            .cal-day {
+                font-size: 12px;
+                cursor: pointer;
+                border-radius: 50%;
+                width: 24px;
+                height: 24px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .cal-today {
+                background: rgba(0, 0, 255);
+                font-weight: 500;
+            }
+
+            .cal-selected {
+                background: white;
+                color: black;
+                font-weight: 500;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "box">
+            <div id = "cal-header">
+                <button id = "prev-month">&lt;</button>
+                <span id = "month-label"></span>
+                <button id = "next-month">&gt;</button>
+            </div>
+            <div id = "weekday-row">
+                <span>Su</span><span>M</span><span>T</span><span>W</span><span>Th</span><span>F</span><span>Sa</span>
+            </div>
+            <div id = "cal-grid"></div>
+        </div>
+
+        <script src = "calendar-renderer.js"></script>
+    </body>
+</html>
